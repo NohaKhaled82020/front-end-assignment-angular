@@ -24,6 +24,7 @@ Access the live application here:
 - ng-bootstrap
 - ng-select
 - ngx-spinner
+- @ngx-loading-bar
 - RxJS
 - [MockAPI.io](https://mockapi.io/)
 
