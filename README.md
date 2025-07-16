@@ -6,37 +6,38 @@ An Angular 20 web application designed for Cluster2 Airports to efficiently mana
 
 - **Responsive UI:** Optimized for desktop, tablet, and mobile devices.
 - **News Dashboard:** list of news articles including titles, summaries, and publish dates.
+- **Archive News:** Automatically archive news articles 30 days after their publish date.
 - **Detailed View:** Access full article content on a news details page.
 - **Add News:** Submit new articles with fields such as title, content, tags, and publish date.
-- **Archive News:** Automatically archive news articles 30 days after their publish date.
 - **Search Functionality:** filter news articles by title or content keywords.
 - **Dark Mode:** Toggle between light and dark themes.
 
 ## 🌐 Live Demo
 
 Access the live application here:  
-[https://scoot-multi-page-website-09.netlify.app/](https://scoot-multi-page-website-09.netlify.app/)
+[https://unrivaled-chebakia-b4bf9b.netlify.app/](https://unrivaled-chebakia-b4bf9b.netlify.app/)
 
 ## 🛠️ Technology Stack
 
-- **Framework:** Angular 20
-- **Styling:** TailwindCSS
-- **UI Components:** ng-bootstrap, ng-select
-- **Loading Indicators:** ngx-spinner
-- **Data Source:** [MockAPI.io](https://mockapi.io/) (REST API)
-- **Reactive Programming:** RxJS
+- Angular 20
+- TailwindCSS
+- ng-bootstrap
+- ng-select
+- ngx-spinner
+- RxJS
+- [MockAPI.io](https://mockapi.io/)
 
-## 🧪 Notes on Data Source
+## 🧪 Data Source
 
-This project uses MockAPI.io to simulate a RESTful API for news data. All CRUD operations on news articles interact with this mock backend, providing a realistic API experience without requiring a full backend implementation.
+This project uses MockAPI.io to perform a RESTful API for news data. All CRUD operations on news articles interact with this mock backend, providing a realistic API experience without requiring a full backend implementation.
 
 ## 📦 Installation and Setup
 
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone <https://github.com/NohaKhaled82020/front-end-assignment-angular.git>
+   cd <front-end-assignment-angular>
 
    ```
 
