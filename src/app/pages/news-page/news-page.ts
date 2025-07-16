@@ -39,7 +39,6 @@ export class NewsPage implements OnInit, OnDestroy {
         map((res) => res['news']),
         tap((res) => {
           if (res.length) {
-            this.spinner.hide();
             this.setDate(res);
           }
         })
