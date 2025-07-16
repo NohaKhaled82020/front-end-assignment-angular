@@ -1,8 +1,53 @@
-# FrontEndAssignmentAngular
+# Cluster2 Airports News Management Web App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
+An Angular 20 web application designed for Cluster2 Airports to efficiently manage and display company news. The app offers a seamless user experience with responsive design, dark mode support, and intuitive news management features.
 
-## Development server
+## 🚀 Features
+
+- **Responsive UI:** Optimized for desktop, tablet, and mobile devices.
+- **News Dashboard:** list of news articles including titles, summaries, and publish dates.
+- **Detailed View:** Access full article content on a news details page.
+- **Add News:** Submit new articles with fields such as title, content, tags, and publish date.
+- **Archive News:** Automatically archive news articles 30 days after their publish date.
+- **Search Functionality:** filter news articles by title or content keywords.
+- **Dark Mode:** Toggle between light and dark themes.
+
+## 🌐 Live Demo
+
+Access the live application here:  
+[https://scoot-multi-page-website-09.netlify.app/](https://scoot-multi-page-website-09.netlify.app/)
+
+## 🛠️ Technology Stack
+
+- **Framework:** Angular 20
+- **Styling:** TailwindCSS
+- **UI Components:** ng-bootstrap, ng-select
+- **Loading Indicators:** ngx-spinner
+- **Data Source:** [MockAPI.io](https://mockapi.io/) (REST API)
+- **Reactive Programming:** RxJS
+
+## 🧪 Notes on Data Source
+
+This project uses MockAPI.io to simulate a RESTful API for news data. All CRUD operations on news articles interact with this mock backend, providing a realistic API experience without requiring a full backend implementation.
+
+## 📦 Installation and Setup
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+
+   ```
+
+## 🧾 Development server
 
 To start a local development server, run:
 
@@ -12,21 +57,7 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
+## 🏗️ Building
 
 To build the project run:
 
@@ -35,25 +66,3 @@ ng build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
