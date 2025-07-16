@@ -45,19 +45,11 @@ export class NewsPage implements OnInit, OnDestroy {
         })
       )
     );
-
     this.subs.push(
       this.dataService.searchTerm$
         .pipe(distinctUntilChanged(), debounceTime(300))
         .subscribe((term) => {
-          if (term) {
-            term = term.toLowerCase();
-            this.newsList = this.getFilteredNews(this.newsList, term);
-            this.archivedNewsList = this.getFilteredNews(
-              this.archivedNewsList,
-              term
-            );
-          }
+          this.setDate(this.allNews, term);
         })
     );
   }
@@ -81,23 +73,26 @@ export class NewsPage implements OnInit, OnDestroy {
     );
   }
 
-  setDate(res: any) {
+  setDate(res: any[], term: string = '') {
     this.allNews = res;
     this.newsList = this.allNews.filter(
-      (obj: any) => !this.checkArchivedNews(obj.publishDate)
+      (obj: any) =>
+        !this.checkArchivedNews(obj.publishDate) &&
+        this.newMatchSearch(obj, term)
     );
-    this.archivedNewsList = this.allNews.filter((obj: any) =>
-      this.checkArchivedNews(obj.publishDate)
+    this.archivedNewsList = this.allNews.filter(
+      (obj: any) =>
+        this.checkArchivedNews(obj.publishDate) &&
+        this.newMatchSearch(obj, term)
     );
   }
 
-  getFilteredNews(items: any[], term: string): any[] {
-    if (!term || !items?.length) return items;
-    return items.filter(
-      (item) =>
-        item.title.toLowerCase().includes(term) ||
-        item.content.toLowerCase().includes(term)
-    );
+  newMatchSearch(item: any, term: string = ''): boolean {
+    if (!term) return true;
+    term = term.toLowerCase().trim();
+    const title = item.title?.toLowerCase();
+    const content = item.content?.toLowerCase();
+    return title.includes(term) || content.includes(term);
   }
 
   checkArchivedNews(publishDate: string | null): boolean | null {
@@ -121,6 +116,6 @@ export class NewsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subs.forEach((sub) => sub.unsubscribe);
+    this.subs.forEach((sub) => sub.unsubscribe());
   }
 }

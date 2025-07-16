@@ -10,6 +10,7 @@
         Add News
       </button>
     </div>
+    @if (newsList.length) {
     <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       @for (card of newsList; track $index) {
       <div
@@ -41,6 +42,11 @@
       </div>
       }
     </div>
+    }@else {
+    <div class="text-center text-gray-600 dark:text-gray-300 py-10">
+      No news articles available.
+    </div>
+    }
   </div>
 
   <div>
@@ -49,6 +55,7 @@
         Archived News
       </h1>
     </div>
+    @if(archivedNewsList.length){
     <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       @for (card of archivedNewsList; track $index) {
       <div
@@ -80,5 +87,10 @@
       </div>
       }
     </div>
+    }@else {
+    <div class="text-center text-gray-600 dark:text-gray-300 py-10">
+      No Archived news articles available.
+    </div>
+    }
   </div>
 </div>
