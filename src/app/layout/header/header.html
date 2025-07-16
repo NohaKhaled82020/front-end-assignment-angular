@@ -1,0 +1,79 @@
+<header
+  class="shadow bg-white dark:bg-[#121212] dark:shadow-white/20 sticky top-0 z-50"
+>
+  <div
+    class="mx-auto px-2 md:px-10 py-3 flex flex-col md:flex-row items-center"
+  >
+    <a
+      routerLink="/"
+      class="flex items-center text-2xl font-extrabold text-blue-600 mb-3 md:mb-0"
+    >
+      <svg
+        class="h-7 w-7 mr-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 10l9-4 9 4-9 4-9-4z"
+        />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 10v4l9 4 9-4v-4"
+        />
+      </svg>
+      <span class="tracking-tight">
+        Cluster2
+        <span
+          class="text-gray-700 dark:text-gray-300 font-semibold text-base md:text-lg ml-1"
+        >
+          Airports
+        </span>
+      </span>
+    </a>
+
+    <div class="flex items-center w-full md:w-auto md:ml-auto">
+      <input
+        class="bg-none flex-1 md:w-64 px-3 py-2 rounded border border-gray-300 dark:border-gray-600 dark:bg-transparent dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+        type="text"
+        placeholder="Search..."
+        (input)="search($event)"
+      />
+
+      <button
+        type="button"
+        class="ml-3 flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white transition hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
+        (click)="toggleThemeMode()"
+      >
+        <svg
+          *ngIf="isDarkMode"
+          class="h-6 w-6"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path
+            d="M17.293 13.293A8 8 0 116.707 2.707a8.003 8.003 0 0010.586 10.586z"
+          />
+        </svg>
+        <svg
+          *ngIf="!isDarkMode"
+          class="h-6 w-6"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            d="M12 3V4M12 20V21M4 12H3M6.31412 6.31412L5.5 5.5M17.6859 6.31412L18.5 5.5M6.31412 17.69L5.5 18.5001M17.6859 17.69L18.5 18.5001M21 12H20M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z"
+            stroke="#000000"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>

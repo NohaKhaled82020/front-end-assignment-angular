@@ -1,0 +1,53 @@
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <a
+    class="inline-flex items-center text-blue-600 hover:text-blue-800 mb-6"
+    routerLink="/"
+  >
+    <svg
+      class="w-5 h-5 mr-2"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M15 19l-7-7 7-7"
+      ></path>
+    </svg>
+    Back to News
+  </a>
+
+  <h1
+    class="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2 leading-tight"
+  >
+    {{articleNew?.title}}
+  </h1>
+
+  <p class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
+    <span class="font-semibold me-2">Published at:</span>
+    {{ articleNew.publishDate | date: 'MMM dd,yyyy' }}
+  </p>
+
+  <div class="flex flex-wrap gap-2 mb-6">
+    @for (tag of articleNew?.tags; track $index) {
+    <span
+      class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-600 cursor-default transition"
+    >
+      {{ tag }}
+    </span>
+    }
+  </div>
+
+  <img
+    [src]="articleNew?.imageUrl?articleNew?.imageUrl : defaultImage"
+    class="w-full rounded-lg shadow-md mb-8 object-cover max-h-[400px] mx-auto"
+  />
+
+  <p
+    class="whitespace-pre-line text-gray-800 dark:text-gray-200 leading-relaxed text-lg"
+  >
+    {{articleNew?.content}}
+  </p>
+</div>

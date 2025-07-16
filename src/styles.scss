@@ -1,0 +1,21 @@
+@use "bootstrap/scss/bootstrap";
+@use "../node_modules/@ng-select/ng-select/themes/default.theme.css";
+@use "../node_modules/ngx-spinner/animations/ball-scale-multiple.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.dark {
+  background-color: #121212;
+}
+
+.ng-select .ng-select-container {
+  background: transparent;
+  box-shadow: none;
+  min-height: 41px;
+  border: 1px solid #d1d5db !important;
+  body.dark & {
+    border: 1px solid #4b5563 !important;
+  }
+}

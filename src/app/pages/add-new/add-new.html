@@ -1,0 +1,131 @@
+<div class="p-6 max-w-2xl w-full rounded-lg shadow-lg dark:bg-[#121212]">
+  <header
+    class="flex justify-between items-center mb-4 border-b border-gray-200 dark:border-gray-700 pb-4"
+  >
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Add New</h2>
+    <button
+      type="button"
+      (click)="activeModal.close()"
+      class="text-xl text-gray-500 dark:text-gray-300 focus:outline-none"
+    >
+      ✕
+    </button>
+  </header>
+
+  <form [formGroup]="articleNewForm" class="space-y-4">
+    <div>
+      <label
+        class="block mb-1 text-sm font-medium text-gray-800 dark:text-gray-300"
+      >
+        Image Url
+      </label>
+      <input
+        type="text"
+        placeholder="Ex: https://image/placeholder-image"
+        formControlName="imageUrl"
+        class="w-full px-3 py-2 rounded border placeholder:text-gray-600 dark:placeholder:text-gray-400 dark:text-white border-gray-300 dark:border-gray-600 dark:bg-transparent focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+      />
+    </div>
+
+    <div>
+      <label
+        class="block mb-1 text-sm font-medium text-gray-800 dark:text-gray-300"
+      >
+        Title <span class="text-sm text-red-600">*</span>
+      </label>
+      <input
+        type="text"
+        placeholder="Title"
+        formControlName="title"
+        class="w-full px-3 py-2 placeholder:text-gray-600 dark:placeholder:text-gray-400 rounded border border-gray-300 dark:border-gray-600 dark:bg-transparent dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+      />
+      @if
+      (articleNewForm.get('title')!.hasError('required')&&articleNewForm.get('title')?.touched
+      && articleNewForm.get('title')?.invalid) {
+
+      <p class="mt-2 text-sm text-red-600">Title is required</p>
+      }
+    </div>
+
+    <div>
+      <label
+        class="block mb-1 text-sm font-medium text-gray-800 dark:text-gray-300"
+      >
+        Publish Date
+      </label>
+      <input
+        type="text"
+        placeholder="yyyy-mm-dd"
+        formControlName="publishDate"
+        ngbDatepicker
+        #d="ngbDatepicker"
+        (click)="d.toggle()"
+        class="w-full px-3 py-2 placeholder:text-gray-600 dark:placeholder:text-gray-400 rounded border border-gray-300 dark:border-gray-600 dark:bg-transparent dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+      />
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        Hint: News will be <strong>archived automatically 30 days</strong> after
+        the publish date.
+      </p>
+    </div>
+    <div>
+      <label
+        class="block mb-1 text-sm font-medium text-gray-800 dark:text-gray-300"
+      >
+        Tags
+      </label>
+      <ng-select
+        [addTag]="true"
+        [multiple]="true"
+        [isOpen]="false"
+        placeholder="add tags"
+        formControlName="tags"
+      ></ng-select>
+    </div>
+    <div>
+      <label
+        class="block mb-1 text-sm font-medium text-gray-800 dark:text-gray-300"
+      >
+        Summary
+      </label>
+      <textarea
+        placeholder="Short summary "
+        formControlName="summary"
+        rows="2"
+        class="w-full px-3 py-2 placeholder:text-gray-600 dark:placeholder:text-gray-400 rounded border border-gray-300 dark:border-gray-600 dark:bg-transparent dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition resize-y"
+      ></textarea>
+    </div>
+    <div>
+      <label
+        class="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+      >
+        Content
+      </label>
+      <textarea
+        placeholder="Content"
+        formControlName="content"
+        rows="3"
+        class="w-full px-3 py-2 placeholder:text-gray-600 dark:placeholder:text-gray-400 rounded border border-gray-300 dark:border-gray-600 dark:bg-transparent dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 transition resize-y"
+      ></textarea>
+    </div>
+  </form>
+
+  <footer
+    class="flex justify-end gap-3 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700"
+  >
+    <button
+      type="button"
+      class="text-base px-4 py-2 rounded-md border border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition focus:outline-none"
+      (click)="activeModal.close()"
+    >
+      Cancel
+    </button>
+    <button
+      type="button"
+      (click)="save()"
+      [disabled]="articleNewForm.invalid"
+      class="text-base px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition disabled:bg-blue-300 disabled:cursor-not-allowed focus:outline-none"
+    >
+      Save
+    </button>
+  </footer>
+</div>
