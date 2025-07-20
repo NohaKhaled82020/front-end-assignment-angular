@@ -1,4 +1,4 @@
-# Cluster2 Airports News Management Web App
+# News Management Web App
 
 An Angular 20 web application designed for Cluster2 Airports to efficiently manage and display company news. The app offers a seamless user experience with responsive design, dark mode support, and intuitive news management features.
 
