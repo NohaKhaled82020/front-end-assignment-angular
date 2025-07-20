@@ -15,7 +15,7 @@ An Angular 20 web application designed for Cluster2 Airports to efficiently mana
 ## 🌐 Live Demo
 
 Access the live application here:  
-[https://unrivaled-chebakia-b4bf9b.netlify.app/](https://unrivaled-chebakia-b4bf9b.netlify.app/)
+[https://cluster2-airports-news-management.netlify.app/](https://cluster2-airports-news-management.netlify.app/)
 
 ## 🛠️ Technology Stack
 
