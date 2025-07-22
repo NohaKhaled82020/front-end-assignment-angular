@@ -1,3 +1,4 @@
+import { httpResource } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { ResolveFn } from '@angular/router';
 import { newsApi } from '@constants/constants';

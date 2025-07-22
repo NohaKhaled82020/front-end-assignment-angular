@@ -25,6 +25,6 @@ export class Header {
   }
 
   search(ev: any): void {
-    this.dataService.searchTerm$.next(ev?.target?.value);
+    this.dataService.searchTerm.set(ev?.target?.value);
   }
 }

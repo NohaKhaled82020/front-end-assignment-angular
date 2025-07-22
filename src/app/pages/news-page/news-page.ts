@@ -1,90 +1,63 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  linkedSignal,
+} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import {
-  debounceTime,
-  defaultIfEmpty,
-  distinctUntilChanged,
-  firstValueFrom,
-  map,
-  Subscription,
-  tap,
-} from 'rxjs';
 import { AddNew } from '../add-new/add-new';
 import { DataService } from '@services/data-service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DEFAULT_IMAGE, newsApi } from '@constants/constants';
+import { newsApi } from '@constants/constants';
+import { httpResource } from '@angular/common/http';
+import { NewsCard } from '@components/news-card/news-card';
 
 @Component({
   selector: 'app-news',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NewsCard],
   templateUrl: './news-page.html',
 })
-export class NewsPage implements OnInit, OnDestroy {
-  allNews: any[] = [];
-  newsList: any[] = [];
-  archivedNewsList: any[] = [];
-  subs: Subscription[] = [];
-  defaultImage = DEFAULT_IMAGE;
-
+export class NewsPage {
+  route = inject(ActivatedRoute);
   modalService = inject(NgbModal);
   dataService = inject(DataService);
   spinner = inject(NgxSpinnerService);
-  route = inject(ActivatedRoute);
 
-  ngOnInit(): void {
-    firstValueFrom(
-      this.route.data.pipe(
-        map((res) => res['news']),
-        tap((res) => {
-          if (res.length) {
-            this.setDate(res);
-          }
-        })
-      )
-    );
-    this.subs.push(
-      this.dataService.searchTerm$
-        .pipe(distinctUntilChanged(), debounceTime(300))
-        .subscribe((term) => {
-          this.setDate(this.allNews, term);
-        })
-    );
-  }
-
-  getNews(): void {
-    this.spinner.show();
-    let params: any = {
+  newsSignal = httpResource<any[]>(() => ({
+    url: newsApi,
+    method: 'GET',
+    params: {
       sortBy: 'publishDate',
       order: 'desc',
-    };
-    firstValueFrom(
-      this.dataService.get(`${newsApi}`, { params }).pipe(
-        defaultIfEmpty([]),
-        tap((res) => {
-          this.spinner.hide();
-          if (res.length) {
-            this.setDate(res);
-          }
-        })
-      )
-    );
-  }
+    },
+  }));
 
-  setDate(res: any[], term: string = '') {
-    this.allNews = res;
-    this.newsList = this.allNews.filter(
+  allNews = computed(() => this.newsSignal.value() ?? []);
+  postedNewsList = computed(() =>
+    this.allNews().filter(
       (obj: any) =>
         !this.checkArchivedNews(obj.publishDate) &&
-        this.newMatchSearch(obj, term)
-    );
-    this.archivedNewsList = this.allNews.filter(
+        this.newMatchSearch(obj, this.dataService.debouncedSearchTerm())
+    )
+  );
+  selectedPostedNew = linkedSignal(() => this.postedNewsList()[0]);
+  archivedNewsList = computed(() =>
+    this.allNews().filter(
       (obj: any) =>
         this.checkArchivedNews(obj.publishDate) &&
-        this.newMatchSearch(obj, term)
-    );
-  }
+        this.newMatchSearch(obj, this.dataService.debouncedSearchTerm())
+    )
+  );
+  clientEffect = effect(() => {
+    if (this.newsSignal.status() === 'loading') {
+      this.spinner.show();
+    } else {
+      this.spinner.hide();
+    }
+  });
 
   newMatchSearch(item: any, term: string = ''): boolean {
     if (!term) return true;
@@ -109,12 +82,12 @@ export class NewsPage implements OnInit, OnDestroy {
     });
     modelRef.result.then((res) => {
       if (res) {
-        this.getNews();
+        this.newsSignal.reload();
       }
     });
   }
 
-  ngOnDestroy(): void {
-    this.subs.forEach((sub) => sub.unsubscribe());
+  changedSelectedNew(card: any) {
+    this.selectedPostedNew.set(card);
   }
 }

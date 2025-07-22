@@ -22,16 +22,16 @@
   <h1
     class="text-4xl font-extrabold text-gray-900 dark:text-gray-100 mb-2 leading-tight"
   >
-    {{articleNew?.title}}
+    {{articleNew()?.title}}
   </h1>
 
   <p class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-3">
     <span class="font-semibold me-2">Published at:</span>
-    {{ articleNew.publishDate | date: 'MMM dd,yyyy' }}
+    {{ articleNew().publishDate | date: 'MMM dd,yyyy' }}
   </p>
 
   <div class="flex flex-wrap gap-2 mb-6">
-    @for (tag of articleNew?.tags; track $index) {
+    @for (tag of articleNew()?.tags; track $index) {
     <span
       class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 px-3 py-1 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-gray-600 cursor-default transition"
     >
@@ -41,13 +41,13 @@
   </div>
 
   <img
-    [src]="articleNew?.imageUrl?articleNew?.imageUrl : defaultImage"
+    [src]="articleNew()?.imageUrl  || dataService.defaultImage()"
     class="w-full rounded-lg shadow-md mb-8 object-cover max-h-[400px] mx-auto"
   />
 
   <p
     class="whitespace-pre-line text-gray-800 dark:text-gray-200 leading-relaxed text-lg"
   >
-    {{articleNew?.content}}
+    {{articleNew()?.content}}
   </p>
 </div>

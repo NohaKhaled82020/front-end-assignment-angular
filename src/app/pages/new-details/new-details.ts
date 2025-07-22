@@ -1,34 +1,38 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { DEFAULT_IMAGE } from '@constants/constants';
-import { DataService } from '@services/data-service';
+import { newsApi } from '@constants/constants';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { firstValueFrom, map, tap } from 'rxjs';
+import { httpResource } from '@angular/common/http';
+import { DataService } from '@services/data-service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, computed, effect, inject, Signal } from '@angular/core';
 
 @Component({
   selector: 'app-new-details',
   imports: [CommonModule, RouterModule],
   templateUrl: './new-details.html',
 })
-export class NewDetailsPage implements OnInit {
-  articleNew: any;
-  defaultImage = DEFAULT_IMAGE;
-
+export class NewDetailsPage {
   dataService = inject(DataService);
   spinner = inject(NgxSpinnerService);
   route = inject(ActivatedRoute);
 
-  ngOnInit(): void {
-    firstValueFrom(
-      this.route.data.pipe(
-        map((res) => res['new']),
-        tap((res) => {
-          if (res) {
-            this.articleNew = res;
-          }
-        })
-      )
-    );
-  }
+  article = httpResource(
+    () => ({
+      url: `${newsApi}/${this.route.snapshot.paramMap.get('id')}`,
+      method: 'get',
+    }),
+    {
+      defaultValue: {},
+    }
+  );
+
+  articleNew: Signal<any> = computed(() => this.article.value());
+
+  customEffect = effect(() => {
+    if (this.article.isLoading()) {
+      this.spinner.show();
+    } else {
+      this.spinner.hide();
+    }
+  });
 }
